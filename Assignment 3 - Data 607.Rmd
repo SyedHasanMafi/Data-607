@@ -1,0 +1,62 @@
+---
+title: "DATA 607 Spring 2024 - Assignment 3"
+author: "Syed Hasan"
+output: pdf_document
+---
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+library(lubridate)
+```
+
+#Problem 1 :
+
+```{r, echo=FALSE}
+raw_file = 'https://raw.githubusercontent.com/fivethirtyeight/data/master/college-majors/majors-list.csv'
+majors <- as_tibble(read.csv(raw_file))
+majors_sub <- majors %>% 
+    mutate(matched_name = str_match(Major,'.*DATA.*|.*STATISTICS.*')) %>%
+    select(Major,matched_name) %>%
+    filter(!is.na(matched_name))
+majors_sub
+```
+
+#Problem 2 : 
+
+```{r, echo=FALSE}
+#2 Write code that transforms the data below:
+vec.text = c('[1] "bell pepper"  "bilberry"     "blackberry"   "blood orange"
+[5] "blueberry"    "cantaloupe"   "chili pepper" "cloudberry"  
+[9] "elderberry"   "lime"         "lychee"       "mulberry"    
+[13] "olive"        "salal berry"')
+
+vec.text.char = gsub("(\\n\\[\\d+\\])|(^\\[\\d+\\])", "", vec.text)
+vec.text.char = strsplit(vec.text.char, '\\"')
+vec.text.char = unlist(vec.text.char)
+vec.text.char = vec.text.char[grep("[a-z]", vec.text.char)]
+print(vec.text.char)
+```
+
+
+#Problem 3 :
+
+(.)\1\1 - Any two characters that repeats in the reverse order.
+“(.)(.)\\2\\1” - Any two characters that repeats in the same order.
+“(.).\1.\1” - Any single character that repeats two more times, with each repetition after another single variable character.
+“(.)(.)(.).*\3\2\1” - Any three characters that repeat in the reverse order after any number of variable characters.
+
+#Problem 4 : 
+
+#Start and end with the same character:
+```{r, echo=FALSE}
+str_view("eye", "^(.).*\\1$", match = T)
+```
+#Contain a repeated pair of letters (e.g. "church" contains "ch" repeated twice.)
+```{r, echo=FALSE}
+str_view("church", "(..).*\\1", match = T)
+```
+```{r, echo=FALSE}
+str_view("eleven", "(.).*\\1.*\\1", match = T)
+```
+
+
