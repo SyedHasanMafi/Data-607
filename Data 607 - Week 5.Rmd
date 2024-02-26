@@ -12,7 +12,7 @@ library(dplyr)
 ```
 
 ```{r}
-url <- 'https://raw.githubusercontent.com/breboa/MSDS-Data-607/main/Assignment%206%20Data%20.csv'
+url <- 'https://raw.githubusercontent.com/SyedHasanMafi/Data-607/main/airlinedata.csv'
 airline_data <- read.table(url, header=TRUE, sep=",", na.strings = c("", "NA"))
 
 airline_data
